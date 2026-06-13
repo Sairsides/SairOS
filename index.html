@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
 
-  <body style="background-color: #C2DDF2; font-family: Gill Sans, sans-serif"></body>
-    <h1 style="color: #194B75; padding: 4px; margin: 4px">Welcome to  SairOS</h1>
-    <h2 style="color: #194B75">A web based OS that is made by Sair</h2>
-    <h3 style="color: #194B75">Happy to connect on Linkedin</h3>
-    <a href="https://www.linkedin.com/in/kurshad-yusifbayli-1b7bb73b5/" style="font-size: 14px;">My Linkedin</a>
-    <br>
-    <img style="width: 300px; height: 300px" src="./SairOSlogo.png" />
-  
+  <body style="background-color: #C2DDF2; margin: 0; font-family: Gill Sans, sans-serif; background-image: url(./SairOSwallpaper.jpg); background-repeat: no-repeat; background-size: cover;">
+
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: thick double #32a1ce; width: 500px; border-radius: 16px; background-color: #C2DDF2;">
+
+      <img style="width: 200px; height: 200px; float: right; padding: 4px" src="./SairOSlogo.png" />
+      <h1 style="color: #194B75; padding: 4px; margin: 4px">Welcome to  SairOS</h1>
+      <h2 style="color: #194B75; padding: 4px; margin: 4px">A web based OS that is made by Sair</h2>
+      <h3 style="color: #194B75; padding: 4px; margin: 4px">Happy to connect on Linkedin</h3>
+      <a href="https://www.linkedin.com/in/kurshad-yusifbayli-1b7bb73b5/" style="font-size: 14px; padding: 4px; margin: 4px;">My Linkedin</a>
+      <br>
+      
+
+    </div>
+
+    <div style="display: flex; position: fixed; top: 0; left: 0; width: 100%; justify-content: space-between; align-items: center; backdrop-filter: blur(10px); background-color: rgba(12, 12, 12, 0.4); color: #fff; height: 40px; box-sizing: border-box; z-index: 9999;">
+
+      <p style="margin-left: 16px; font-weight: bold; margin-top: 0; margin-bottom: 0;">SairOS</p>
+      <p id="timeText" style="margin-right: 16px; margin-top: 0; margin-bottom: 0;">Time</p>
+
+    </div>
+    
+    <script>
+
+      function updateTime() {
+      
+      var currentTime = new Date().toLocaleString(); 
+      var timeText = document.querySelector("#timeText");
+       timeText.innerHTML = currentTime
+
+      }
+
+      setInterval(updateTime,1000);
+    
+    </script>
+
   </body>
 
 </html>
