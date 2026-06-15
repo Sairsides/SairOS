@@ -191,3 +191,25 @@ dragElement(NotesWindow);
 dragElement(CalcWindow);
 dragElement(SettingsWindow);
 dragElement(PortfolioWindow);
+
+function minimizeWindow(element) {
+  element.style.display = "none";
+}
+
+function maximizeWindow(element) {
+  if (element.style.width === "100vw") {
+    // Restore window back to standard desktop sizes if already maximized
+    element.style.width = element.id === "CalcWindow" ? "260px" : element.id === "SettingsWindow" ? "320px" : "500px";
+    element.style.height = "auto";
+    element.style.top = "50%";
+    element.style.left = "50%";
+    element.style.transform = "translate(-50%, -50%)";
+  } else {
+    // Expand to full screen dimensions instantly
+    element.style.transform = "none";
+    element.style.top = "40px"; // Sits perfectly below your top panel bar
+    element.style.left = "0px";
+    element.style.width = "100vw";
+    element.style.height = "calc(100vh - 40px)";
+  }
+}
