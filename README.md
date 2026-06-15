@@ -16,5 +16,7 @@ My Portfolio(connected https://sairsides.github.io/ through iframe)
 
 Welcome window(you can open it back by pressing "SairOS" on the top bar)
 
+Open and maximise buttons
+
 # Ai use
-Ai was used for troubleshooting, organizing the code.
+Ai was used for troubleshooting, help with the code, organizing the code.
