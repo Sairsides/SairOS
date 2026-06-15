@@ -10,10 +10,26 @@
 
         <div id="desktopApps" style="padding-top: 50px; padding-left: 20px; display: flex; flex-direction: column; gap: 15px;">
 
-      <div class="desktop-icon">
+      <div class="desktop-icon" id="notesIcon">
         <img src="./NoteApplogo.jpg" alt="Notes Logo">
         <p>Notes</p>
       </div>
+
+      <div class="desktop-icon" id="calcIcon">
+        <img src="Calculatorlogo.png" alt="Calc Logo">
+        <p>Calculator</p>
+      </div>
+
+      <div class="desktop-icon" id="settingsIcon">
+        <img src="settingslogo.png" alt="Settings Logo">
+        <p>Settings</p>
+      </div>
+
+      <div class="desktop-icon" id="portfolioIcon">
+        <img src="portfoliologo.png" alt="Portfolio Logo">
+        <p>Sair`s Portfolio</p>
+      </div>
+
 
     </div>
 
@@ -67,7 +83,96 @@
       <p id="timeText" style="margin-right: 16px; margin-top: 0; margin-bottom: 0;">Time</p>
 
     </div>
-    
+
+    <div class="window" id="CalcWindow" style="position: absolute; top: 40%; left: 40%; transform: translate(-50%, -50%); display: none; width: 260px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+
+      <div class="windowheader" id="CalcWindowheader">
+        <div style="display: flex; gap: 8px; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);">
+            <div class="closebutton" id="calcclose" title="Close"></div>
+            <div style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; cursor: pointer;"></div>
+            <div style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; cursor: pointer;"></div>
+        </div>
+        Calculator
+      </div>
+
+      <div style="padding: 15px; background-color: #C2DDF2;">
+        
+        <input type="text" id="calcDisplay" readonly style="width: 100%; height: 50px; background-color: #1a252f; border: none; color: #fff; text-align: right; padding: 10px; font-size: 24px; box-sizing: border-box; margin-bottom: 15px; border-radius: 4px; font-family: monospace; outline: none;" value="0">
+        
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+          <button onclick="clearCalc()" style="grid-column: span 3; background-color: #8e1e11; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">C</button>
+          <button onclick="pressCalc('/')" style="background-color: #55bbff; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">÷</button>
+          
+          <button onclick="pressCalc('7')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">7</button>
+          <button onclick="pressCalc('8')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">8</button>
+          <button onclick="pressCalc('9')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">9</button>
+          <button onclick="pressCalc('*')" style="background-color: #8ac3fd; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">×</button>
+          
+          <button onclick="pressCalc('4')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">4</button>
+          <button onclick="pressCalc('5')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">5</button>
+          <button onclick="pressCalc('6')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">6</button>
+          <button onclick="pressCalc('-')" style="background-color: #8ac3fd; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">-</button>
+          
+          <button onclick="pressCalc('1')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">1</button>
+          <button onclick="pressCalc('2')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">2</button>
+          <button onclick="pressCalc('3')" style="background-color: #abd3fb; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">3</button>
+          <button onclick="pressCalc('+')" style="background-color: #8ac3fd; color: black; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">+</button>
+          
+          <button onclick="pressCalc('0')" style="grid-column: span 2; background-color: #34495e; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">0</button>
+          <button onclick="pressCalc('.')" style="background-color: #34495e; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer;">.</button>
+          <button onclick="calculateResult()" style="background-color: #1bab57; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">=</button>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="window" id="SettingsWindow" style="position: absolute; top: 38%; left: 38%; transform: translate(-50%, -50%); display: none; width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+
+      <div class="windowheader" id="SettingsWindowheader">
+        <div style="display: flex; gap: 8px; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);">
+            <div class="closebutton" id="settingsclose" title="Close"></div>
+            <div style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; cursor: pointer;"></div>
+            <div style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; cursor: pointer;"></div>
+        </div>
+        System Settings
+      </div>
+
+      <div style="padding: 15px; background-color: #C2DDF2; color: #194B75;">
+        <h3 style="margin-top: 0; font-size: 14px; border-bottom: 2px solid #32a1ce; padding-bottom: 4px;">Personalization</h3>
+        <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">Choose Desktop Background Wallpaper:</p>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+
+          <button onclick="changeTheme('./SairOSwallpaper.jpg')" style="width: 60px; height: 40px; background-image: url('./SairOSwallpaper.jpg'); background-size: cover; border: 2px solid #194B75; border-radius: 6px; cursor: pointer;" title="Nebula Space"></button>
+          
+          <button onclick="changeTheme('./SairOSwallpaper2.jpg')" style="width: 60px; height: 40px; background-image: url('./SairOSwallpaper2.jpg'); background-size: cover; border: 2px solid #fff; border-radius: 6px; cursor: pointer;" title="Cyberpunk Grid"></button>
+          
+          <button onclick="changeTheme('./SairOSwallpaper3.jpg')" style="width: 60px; height: 40px; background-image: url('./SairOSwallpaper3.jpg'); background-size: cover; border: 2px solid #fff; border-radius: 6px; cursor: pointer;" title="Minimalist Mountains"></button>
+          
+        </div>
+
+      </div>
+    </div>
+
+    <div class="window" id="PortfolioWindow" style="position: absolute; top: 35%; left: 35%; transform: translate(-50%, -50%); display: none; width: 700px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+
+      <div class="windowheader" id="PortfolioWindowheader">
+        <div style="display: flex; gap: 8px; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);">
+            <div class="closebutton" id="portfolioclose" title="Close"></div>
+            <div style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; cursor: pointer;"></div>
+            <div style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; cursor: pointer;"></div>
+        </div>
+        Sair's Cybersecurity Portfolio
+      </div>
+
+      <div style="background-color: #fff; width: 100%; height: 450px; overflow: hidden;">
+        <iframe src="https://sairsides.github.io/" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+      
+    </div>
+
     <script src="script.js"></script>
 
   </body>
