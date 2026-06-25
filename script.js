@@ -192,24 +192,146 @@ dragElement(CalcWindow);
 dragElement(SettingsWindow);
 dragElement(PortfolioWindow);
 
-function minimizeWindow(element) {
-  element.style.display = "none";
-}
+function maximizeWindow(element, iframeId, heightWrapperId) {
+  const iframeEl = document.getElementById(iframeId);
+  const wrapperEl = document.getElementById(heightWrapperId);
 
-function maximizeWindow(element) {
   if (element.style.width === "100vw") {
-    // Restore window back to standard desktop sizes if already maximized
-    element.style.width = element.id === "CalcWindow" ? "260px" : element.id === "SettingsWindow" ? "320px" : "500px";
+
+    element.style.width = element.id === "CalcWindow" ? "260px" : element.id === "SettingsWindow" ? "320px" : element.id === "PortfolioWindow" ? "700px" : "500px";
     element.style.height = "auto";
     element.style.top = "50%";
     element.style.left = "50%";
     element.style.transform = "translate(-50%, -50%)";
+    
+
+    if (iframeEl) iframeEl.style.height = "450px";
+    if (wrapperEl && element.id === "PortfolioWindow") wrapperEl.style.height = "450px";
+    if (wrapperEl && element.id === "NotesWindow") wrapperEl.style.height = "300px";
+    
+
+    const textareaEl = element.querySelector("textarea");
+    if (textareaEl) textareaEl.style.height = "200px";
+    
+    if (element.id === "CalcWindow" && wrapperEl) {
+      wrapperEl.style.height = "auto";
+      const calcButtons = wrapperEl.querySelectorAll("button");
+      calcButtons.forEach(btn => btn.style.height = "auto");
+    }
   } else {
-    // Expand to full screen dimensions instantly
+
     element.style.transform = "none";
-    element.style.top = "40px"; // Sits perfectly below your top panel bar
+    element.style.top = "40px"; 
     element.style.left = "0px";
     element.style.width = "100vw";
     element.style.height = "calc(100vh - 40px)";
+    
+
+    if (iframeEl) iframeEl.style.height = "calc(100vh - 76px)";
+    if (wrapperEl && element.id === "PortfolioWindow") wrapperEl.style.height = "calc(100vh - 76px)";
+    
+
+    if (wrapperEl && element.id === "NotesWindow") {
+      wrapperEl.style.height = "calc(100vh - 65px)";
+      const textareaEl = element.querySelector("textarea");
+      if (textareaEl) textareaEl.style.height = "calc(100vh - 150px)";
+    }
+    
+    if (element.id === "CalcWindow" && wrapperEl) {
+      wrapperEl.style.height = "calc(100vh - 140px)";
+      const calcButtons = wrapperEl.querySelectorAll("button");
+      calcButtons.forEach(btn => btn.style.height = "100%");
+    }
   }
 }
+
+
+window.addEventListener("DOMContentLoaded", function() {
+  const bootScreen = document.getElementById("bootScreen");
+  const startPrompt = document.getElementById("startPrompt");
+  const bootContent = document.getElementById("bootContent");
+  const bootLogs = document.getElementById("bootLogs");
+  const loginPrompt = document.getElementById("loginPrompt");
+  const typingUser = document.getElementById("typingUser");
+  const bootSound = document.getElementById("bootSound");
+
+  if (!bootScreen || !startPrompt) return;
+
+
+  bootScreen.addEventListener("click", function startBoot() {
+
+    bootScreen.removeEventListener("click", startBoot);
+    
+
+    startPrompt.style.display = "none";
+    bootContent.style.display = "block";
+
+
+    if (bootSound) {
+      bootSound.volume = 0.59;
+      bootSound.play().catch(err => console.log("Audio play blocked: ", err));
+    }
+
+
+    setTimeout(printNextLine, 300);
+  });
+
+  const logs = [
+    "SairOS Loader v2.0.0 initializing core components...",
+    "[  OK  ] Checking archive integrity...",
+    "[  OK  ] Mounting root filesystem partition sectors...",
+    "[  OK  ] Starting virtual sandbox security layer variables...",
+    "[  OK  ] Mapping multi-tasking workspace windows context layers...",
+    "[ WARN ] Local configuration out of sync... Attempting automatic correction.",
+    "[  OK  ] GitHub Pages server handshake confirmed successfully.",
+    "[  OK  ] Synchronizing SairOS desktop core resources...",
+    "         - CalcWindow initialized... [ Ready ]",
+    "         - NotesWindow initialized... [ Ready ]",
+    "         - SettingsWindow initialized... [ Ready ]",
+    "         - PortfolioWindow initialized... [ Ready ]",
+    "[  OK  ] System audio driver card configuration allocated.",
+    "[  OK  ] System records and user environments verified.",
+    "Loading authentication profile fields..."
+  ];
+
+  let lineIndex = 0;
+
+  function printNextLine() {
+    if (lineIndex < logs.length) {
+      let line = logs[lineIndex];
+      line = line.replace("[  OK  ]", "<span style='color:#4af626; font-weight:bold;'>[  OK  ]</span>");
+      line = line.replace("[ WARN ]", "<span style='color:#ffbd2e; font-weight:bold;'>[ WARN ]</span>");
+      
+      bootLogs.innerHTML += line + "<br>";
+      lineIndex++;
+      
+      const nextDelay = Math.random() * 200 + 80;
+      setTimeout(printNextLine, nextDelay);
+    } else {
+      setTimeout(startLoginSequence, 400);
+    }
+  }
+
+  function startLoginSequence() {
+    loginPrompt.style.display = "flex";
+    const username = "Sair";
+    let charIndex = 0;
+
+    function typeUsername() {
+      if (charIndex < username.length) {
+        typingUser.textContent += username.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeUsername, 200);
+      } else {
+        bootLogs.innerHTML += "<br><span style='color:#4af626;'>sair@sairos:~$ password: </span>******** (none)";
+        bootLogs.innerHTML += "<br><br><span style='color:#4af626; font-weight:bold;'>Access Granted. Welcome back, Sair.</span>";
+        
+        setTimeout(function() {
+          bootScreen.style.opacity = "0";
+          bootScreen.style.visibility = "hidden";
+        }, 1200);
+      }
+    }
+    setTimeout(typeUsername, 500);
+  }
+});
